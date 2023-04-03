@@ -37,7 +37,16 @@ export default function Login() {
       setLoading(true);
       let res = await login(email, password);
       setLoading(false);
-      navigate("/feed");
+      if (res == undefined) {
+        navigate("/login");
+        setError("Your Id/Password is wrong");
+        setTimeout(() => {
+          setError("");
+        }, 2000);
+        console.log(res, "ddsdsdssd");
+      } else {
+        navigate("/");
+      }
     } catch (e) {
       console.log(e);
       setError("something went wrong");
@@ -45,6 +54,7 @@ export default function Login() {
         setError("");
       }, 2000);
       setLoading(false);
+
       return;
     }
   };

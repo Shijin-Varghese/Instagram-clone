@@ -24,6 +24,7 @@ import {
   doc,
   updateDoc,
   setDoc,
+  addDoc,
   serverTimestamp,
   getFirestore,
 } from "firebase/firestore";
@@ -51,6 +52,8 @@ export default function Signup() {
       let userObj = {};
       let uidd = await signup(email, password);
       const uid = uidd.uid;
+      console.log(uid);
+      console.log(uidd, uid, "signup");
       const metadata = {
         contentType: "image/jpeg",
       };
@@ -58,7 +61,7 @@ export default function Signup() {
       const storage = getStorage();
       const storageRef = ref(storage, `/users/${uid}/ProfileImage`);
       let uploadTask = uploadBytesResumable(storageRef, file, metadata);
-      console.log(uploadTask);
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -83,13 +86,12 @@ export default function Signup() {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (url) => {
-            console.log(serverTimestamp, "helouid");
-            console.log(serverTimestamp, "xxxxx");
-            await setDoc(doc(db, "users", "uid"), {
+            await setDoc(doc(db, "users", `${uid}`), {
               email: email,
               userId: uid,
               fullname: name,
               profileUrl: url,
+              postIds: [],
               createdAt: serverTimestamp(),
             });
           });
