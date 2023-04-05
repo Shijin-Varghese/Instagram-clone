@@ -31,46 +31,17 @@ function Post() {
   const user = JSON.parse(localStorage.getItem("usersss"));
   let empty = false;
   if (_.isEmpty(user)) empty = true;
-
-  // useEffect(() => {
-  //   let parr = [];
-  //   let datafetch = async () => {
-  //     const querySnapshot = await getDocs(collection(db, "posts"));
-  //     console.log(querySnapshot);
-  //     querySnapshot.forEach((doc) => {
-  //       let data = { ...doc.data(), postId: doc.id };
-  //       //   console.log(doc.data(), doc.id);
-  //       parr.push(data);
-  //     });
-
-  //     setPosts([...parr]);
-  //     console.log(posts);
-  //   };
-  //   datafetch();
-
-  //   // let parr = [];
-  //   // const docRef = doc(db, "posts");
-  //   // const q = query(docRef, orderBy("createdAt", "desc")).onSnapshot(
-  //   //   (querysnapshot) => {
-  //   //     parr = [];
-  //   //     querysnapshot.forEach((doc) => {
-  //   //       let data = { ...doc.data(), postId: doc.id };
-  //   //       parr.push(data);
-  //   //     });
-  //   //     setPosts(parr);
-  //   //   }
-  //   // );
-  //   // return q();
-  // }, []);
   return (
     <div>
-      {/* {posts.length == 0 || empty ? (
-        <CircularProgress />
-      ) : ( */}
-      <>
-        <Video />
-      </>
-      {/* )} */}
+      {empty ? (
+        <div>
+          <CircularProgress />
+        </div>
+      ) : (
+        <>
+          <Video />
+        </>
+      )}
     </div>
   );
 }

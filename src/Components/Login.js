@@ -33,7 +33,7 @@ export default function Login() {
   const { login, user } = useContext(AuthContext);
   const handleClick = async () => {
     try {
-      setError();
+      setError("");
       setLoading(true);
       let res = await login(email, password);
       setLoading(false);

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import UploadFile from "./UploadFile";
 import Post from "./Post";
+import Navbar from "./Navbar";
 import { db } from "../firebase";
 import {
   getStorage,
@@ -36,6 +37,7 @@ function Feed() {
         navigate("login")
       ) : (
         <>
+          <Navbar></Navbar>
           <div
             style={{
               display: "flex",
@@ -44,17 +46,6 @@ function Feed() {
               flexDirection: "column",
             }}
           >
-            <div className="comp" style={{ width: "50%" }}>
-              <h1>Welcome to feed</h1>
-              <Button
-                onClick={() => {
-                  logout();
-                  navigate("login");
-                }}
-              >
-                Log Out
-              </Button>
-            </div>
             <UploadFile user={userdata}></UploadFile>
           </div>
           <div>

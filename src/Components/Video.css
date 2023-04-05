@@ -1,15 +1,16 @@
 .videos-styling {
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 80vh;
   scroll-snap-align: start;
-  border-radius: 5%;
 }
 .video-container {
   align-self: center;
   position: relative;
-  left: 50vh;
+  left: 35vw;
+
   height: 80vh;
-  width: 80vh;
+  border: 5px solid #e74c3c;
+  width: 20%;
   border-radius: 20px;
   background-color: white;
   overflow: scroll;
@@ -19,6 +20,7 @@
 .video-container::-webkit-scrollbar {
   display: none;
 }
+
 .videos {
   position: relative;
 }
@@ -46,10 +48,34 @@
   cursor: pointer;
   color: blue;
 }
+.unlikess {
+  cursor: pointer;
+  color: rgb(0, 109, 96);
+}
 .chat-styling {
   position: absolute;
   cursor: pointer;
-  color: white;
+  color: blue;
   bottom: 2%;
-  left: 17%;
+  left: 20%;
+}
+.modal-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+.modalvideo-container {
+  width: 50%;
+  height: 100%;
+}
+.comment-container {
+  width: 50%;
+  height: 100%;
+}
+.modal-video {
+  height: 80vh;
+  width: 100%;
+}
+.card1 {
+  height: 70vh;
 }

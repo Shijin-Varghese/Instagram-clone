@@ -19,7 +19,7 @@ import {
   getFirestore,
 } from "firebase/firestore";
 import { db } from "../firebase";
-function Like(props) {
+function Like2(props) {
   const [posts, setPosts] = useState([]);
   const usersss = JSON.parse(localStorage.getItem("usersss"));
   const [userData, setUser] = useState();
@@ -32,6 +32,7 @@ function Like(props) {
       const docSnap = await getDoc(docRef);
       setUser(docSnap.data());
       const querySnapshot = await getDocs(collection(db, "posts"));
+
       querySnapshot.forEach((doc) => {
         let data = { ...doc.data(), postId: doc.id };
         //   console.log(doc.data(), doc.id);
@@ -47,7 +48,6 @@ function Like(props) {
         setLike(check);
       }
     };
-
     datafetch(props.s);
   }, []);
   const [like, setLike] = useState(null);
@@ -99,26 +99,23 @@ function Like(props) {
         <>
           {like ? (
             <FavoriteIcon
-              className={`icon-styling like`}
+              style={{ padding: "1rem", paddingTop: "0.5rem" }}
+              className={` like`}
               onClick={handleLike}
             />
           ) : (
             <FavoriteIcon
-              className={`icon-styling unlike`}
+              style={{ padding: "1rem", paddingTop: "0.5rem" }}
+              className={`  unlike`}
               onClick={handleLike}
             />
           )}
         </>
       ) : (
-        <>
-          {/* <FavoriteIcon
-            className={`icon-styling unlikess`}
-            onClick={handleLike}
-          /> */}
-        </>
+        <></>
       )}
     </div>
   );
 }
 
-export default Like;
+export default Like2;

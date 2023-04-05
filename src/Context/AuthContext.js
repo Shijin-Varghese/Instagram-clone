@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -12,7 +11,6 @@ import { auth } from "../firebase";
 const _ = require("lodash");
 export const AuthContext = React.createContext();
 export function AuthProvider({ children }) {
-  // const navigate = useNavigate();
   const [user, setUser] = useState();
   // console.log;
   const [loading, setLoading] = useState(true);
@@ -55,13 +53,14 @@ export function AuthProvider({ children }) {
       .then(() => {
         console.log("signed out", user);
         localStorage.removeItem("usersss");
+        localStorage.removeItem("user");
         // setUser({});
-        // navigate("/login");
       })
       .catch((error) => {
         console.log(error);
       });
   }
+
   useEffect(() => {
     const auth = getAuth();
     const unsub = auth.onAuthStateChanged(async (user) => {
