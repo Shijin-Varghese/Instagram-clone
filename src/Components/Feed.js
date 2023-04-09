@@ -22,7 +22,9 @@ import {
   serverTimestamp,
   getFirestore,
 } from "firebase/firestore";
+import { createClient } from "pexels";
 const _ = require("lodash");
+
 function Feed() {
   const { logout } = useContext(AuthContext);
   const [userdata, setUserdata] = useState();

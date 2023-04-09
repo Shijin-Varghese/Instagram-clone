@@ -93,13 +93,18 @@ export default function Signup() {
               profileUrl: url,
               postIds: [],
               createdAt: serverTimestamp(),
-            });
+            })
+              .then(() => {
+                setLoading(false);
+                navigate("/login");
+              })
+              .catch(() => {
+                setLoading(false);
+                navigate("/signup");
+              });
           });
         }
       );
-
-      setLoading(false);
-      navigate("/");
     } catch (e) {
       console.log(e);
       setError("something went wrong");

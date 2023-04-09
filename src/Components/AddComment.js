@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 import {
   getStorage,
   ref,
@@ -25,6 +26,7 @@ function AddComment(props) {
   const usersss = JSON.parse(localStorage.getItem("usersss"));
   const [userData, setUser] = useState();
   const [postData, setPosts] = useState([]);
+  const [success, setSuccess] = useState("");
   useEffect(() => {
     let parr = [];
     let datafetch = async (x) => {
@@ -67,6 +69,11 @@ function AddComment(props) {
       })
       .then(() => {
         console.log("Hi reached third step");
+        setSuccess("Hi Your comment is uploaded please refresh");
+        setTimeout(() => {
+          setSuccess("");
+        }, 2000);
+
         setText("");
       })
       .catch((err) => {
@@ -75,6 +82,7 @@ function AddComment(props) {
   };
   return (
     <div>
+      {success != "" && <Alert severity="success">{success}</Alert>}
       <TextField
         id="outlined-basic"
         label="Comment"

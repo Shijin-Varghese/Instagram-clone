@@ -4,6 +4,7 @@ import Alert from "@mui/material/Alert";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import MovieIcon from "@mui/icons-material/Movie";
 import LinearProgress from "@mui/material/LinearProgress";
+
 import { v4 as uuidv4 } from "uuid";
 import {
   getStorage,
@@ -16,6 +17,7 @@ import firebase from "firebase/compat/app";
 import {
   doc,
   updateDoc,
+  getDocs,
   getDoc,
   setDoc,
   collection,
@@ -27,6 +29,7 @@ function UploadFile({ props }) {
   // const props =
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const handleChange = async (file) => {
     const x = JSON.parse(localStorage.getItem("usersss"));
@@ -39,15 +42,29 @@ function UploadFile({ props }) {
       setLoading(false);
       return;
     }
-    if (file.size / (1024 * 1024) > 100) {
-      setError("Please upload file with less than 100 mb");
+    if (file.size / (1024 * 1024) > 70) {
+      setError("Please upload file with less than 70 mb");
       setTimeout(() => {
         setError("");
       }, 2000);
       setLoading(false);
       return;
     }
-
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    let cnt = 0;
+    querySnapshot.forEach((doc) => {
+      cnt++;
+    });
+    if (cnt >= 6) {
+      setError(
+        "Sorry you cant upload file since Firebase free service allow only 1gb of data storage"
+      );
+      setTimeout(() => {
+        setError("");
+      }, 2000);
+      setLoading(false);
+      return;
+    }
     let uid = uuidv4();
     const storage = getStorage();
     console.log(uid);
@@ -59,7 +76,7 @@ function UploadFile({ props }) {
     let uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on(
       "state_changed",
-      (snapshot) => {
+      async (snapshot) => {
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
@@ -110,7 +127,8 @@ function UploadFile({ props }) {
               });
             })
             .then(() => {
-              console.log("Hi reached third step");
+              setSuccess("Hi Your video is uploaded please refresh");
+
               setLoading(false);
             })
             .catch((err) => {
@@ -127,6 +145,7 @@ function UploadFile({ props }) {
   };
   return (
     <div style={{ marginTop: "5rem", marginBottom: "1rem" }}>
+      {success != "" && <Alert severity="success">{success}</Alert>}
       {error != "" ? (
         <Alert severity="error">{error}</Alert>
       ) : (

@@ -3,13 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyBedwisHfGq-rhnf9HdwaziNCTDruKmVtg",
-  authDomain: "reels-838dd.firebaseapp.com",
-  projectId: "reels-838dd",
-  storageBucket: "reels-838dd.appspot.com",
-  messagingSenderId: "1028949266771",
-  appId: "1:1028949266771:web:6c40e98223c5e9d03791a6",
-  measurementId: "G-LD542E50XH",
+  apiKey: "AIzaSyCzUA4-Pv4hOmGnbk0tXAqLsu2PlyAxGLc",
+  authDomain: "instagran-reels.firebaseapp.com",
+  projectId: "instagran-reels",
+  storageBucket: "instagran-reels.appspot.com",
+  messagingSenderId: "140198028429",
+  appId: "1:140198028429:web:4250c7406ef89b08672ec4",
+  measurementId: "G-2K0ZT3H18J",
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

@@ -12,7 +12,7 @@
   border: 5px solid #e74c3c;
   width: 20%;
   border-radius: 20px;
-  background-color: white;
+  background-color: black;
   overflow: scroll;
   scroll-snap-type: y mandatory;
   scrollbar-width: none;

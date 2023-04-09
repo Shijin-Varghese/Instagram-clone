@@ -5,7 +5,7 @@ import Like from "./Like";
 import Like2 from "./Like2";
 import Comments from "./Comments";
 import { db } from "../firebase";
-import { query, where, orderBy } from "firebase/firestore";
+import { where, orderBy } from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -40,6 +40,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea, CardActions } from "@mui/material";
 import AddComment from "./AddComment";
+import { createClient } from "pexels";
 
 function Video() {
   const [posts, setPosts] = useState([]);
@@ -56,19 +57,22 @@ function Video() {
   };
   useEffect(() => {
     let parr = [];
+    // console.log(doc.data(), doc.id);
     let datafetch = async () => {
       const docRef = doc(db, "users", `${usersss.uid}`);
       const docSnap = await getDoc(docRef);
+
       setUser(docSnap.data());
       const querySnapshot = await getDocs(collection(db, "posts"));
 
       querySnapshot.forEach((doc) => {
         let data = { ...doc.data(), postId: doc.id };
-        //   console.log(doc.data(), doc.id);
+        console.log(doc.data(), doc.id);
         parr.push(data);
       });
-
+      console.log(parr);
       setPosts([...parr]);
+      // setPosts([])
     };
     datafetch();
 
@@ -111,7 +115,7 @@ function Video() {
       e.target.muted = true;
     }
   };
-  // console.log(posts[0].pUrl, "sssasssas");
+  console.log(posts[0], "sssasssas");
   return (
     <>
       {posts.length == 0 ? (
@@ -138,7 +142,7 @@ function Video() {
               return (
                 <div key={index} className="videos1">
                   <div className="videos">
-                    <video className="videos-styling" muted="muted" controls>
+                    <video className="videos-styling" muted="muted">
                       <source
                         onClick={handleClick}
                         onEnded={handleScroll}
@@ -147,12 +151,12 @@ function Video() {
                             ? posts[index].pUrl
                             : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
                         }
-                        // type="video/mp4"
+                        type="video/mp4"
                       />
                     </video>
                     <div className="fa" style={{ display: "flex" }}>
-                      <Avatar alt="avatar" src={user.profileUrl} />
-                      <h4>{user.fullname}</h4>
+                      <Avatar alt="avatar" src={posts[index].uProfile} />
+                      <h4>{posts[index].uName}</h4>
                     </div>
                     <Like s={index}></Like>
                     <ChatBubbleIcon

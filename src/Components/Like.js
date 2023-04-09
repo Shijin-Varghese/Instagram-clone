@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import {
   getStorage,
   ref,
@@ -37,7 +37,6 @@ function Like(props) {
         //   console.log(doc.data(), doc.id);
         parr.push(data);
       });
-
       setPosts([...parr]);
       if (parr.length > 0) {
         console.log("hi");
@@ -47,12 +46,12 @@ function Like(props) {
         setLike(check);
       }
     };
-
     datafetch(props.s);
   }, []);
   const [like, setLike] = useState(null);
   const handleLike = async () => {
     if (like) {
+      setLike(false);
       console.log("elvd ", posts[props.s], userData);
       let narr = posts[props.s].likes.filter((el) => {
         return el != userData.userId;
@@ -75,8 +74,8 @@ function Like(props) {
         .catch((e) => {
           console.log(e.message);
         });
-      setLike(false);
     } else {
+      setLike(true);
       console.log("el ", posts[props.s].likes);
       let narr = [...posts[props.s].likes, userData.userId];
       const docRef = doc(db, "posts", `${posts[props.s].postId}`);
@@ -90,7 +89,6 @@ function Like(props) {
         .catch((e) => {
           console.log(e.message);
         });
-      setLike(true);
     }
   };
   return (
@@ -98,24 +96,16 @@ function Like(props) {
       {like != null ? (
         <>
           {like ? (
-            <FavoriteIcon
-              className={`icon-styling like`}
-              onClick={handleLike}
-            />
+            <ThumbUpIcon className={`icon-styling like`} onClick={handleLike} />
           ) : (
-            <FavoriteIcon
+            <ThumbUpIcon
               className={`icon-styling unlike`}
               onClick={handleLike}
             />
           )}
         </>
       ) : (
-        <>
-          {/* <FavoriteIcon
-            className={`icon-styling unlikess`}
-            onClick={handleLike}
-          /> */}
-        </>
+        <></>
       )}
     </div>
   );
